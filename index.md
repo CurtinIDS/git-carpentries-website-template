@@ -90,6 +90,7 @@ workshop is only open to people from a particular institution.
 <p id="who"> 
   <strong>Who:</strong>
   The course is aimed at postgraduate students and other researchers.
+  <br>
   <strong>
     You don't need to have any previous knowledge of the tools
     that will be presented at the workshop, but you will need basic computer literacy, including managing files on your laptop.
@@ -116,6 +117,7 @@ address.
 <p id="where">
   <strong>Where:</strong>
   {{page.address}}.
+  <br>
   Get directions with
   <a href="//www.openstreetmap.org/?mlat={{page.latitude}}&mlon={{page.longitude}}&zoom=16">OpenStreetMap</a>
   or
