@@ -1,168 +1,89 @@
 [![Website](https://github.com/carpentries/workshop-template/actions/workflows/website.yml/badge.svg)](https://github.com/carpentries/workshop-template/actions/workflows/website.yml)
 
-# The Carpentries Workshop Template
+# The CIDS' Carpentries Workshop Template for Git
 
-This repository is The Carpentries' ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and
-[Library Carpentry][lc-site]'s) template for creating websites for workshops.
+This repository is CIDS' version of The [Carpentries'][swc-site] template for creating websites for workshops.
 
 1. **Please _do not fork this repository directly on GitHub._** Instead, please use GitHub's
    "template" function following [the instructions below](#creating-a-repository) to copy this
-   `workshop-template` repository and customize it for your workshop.
+   `workshop-template` repository and customise it for your workshop.
 
 2. Please *do your work in your repository's `gh-pages` branch*, since that is what is
    [automatically published as a website by GitHub][github-project-pages].
 
-3. Once you are done, please also [let us know][email] the workshop URL. If this is a self-organised
-   workshop, you should also [fill in the self-organized workshop
-   form][self-organized-workshop-form] (if you have not already done so), so we can keep track of
-   all workshops. We build the list of workshops on our websites from the data included in your
-   `index.md` page. We can only do that if you [customize][customization] that page correctly *and*
-   let us know the workshop URL.
+3. Once you are done, please also [let the Carpentries know][email] the workshop URL. If this is a self-organised workshop, you should also [fill in the self-organized workshop
+   form][self-organized-workshop-form] (if you have not already done so), so they can keep track of
+   all workshops. They build the list of workshops on their websites from the data included in your
+   `index.md` page. They can only do that if you [customise][customization] that page correctly *and*
+   let them know the workshop URL.
 
-If you run into problems,
-or have ideas about how to make this process simpler,
-please [get in touch](#getting-and-giving-help).
-The pages on [customizing your website][customization],
-the [FAQ][faq],
-and the [design notes][design] have more detail on what we do and why.
-And please note:
-if you are teaching Git,
-please [create a separate repository](#setting-up-a-separate-repository-for-learners)
-for your learners to practice in.
-
-## Video Tutorial
-
-There is a [YouTube video](https://www.youtube.com/watch?v=_Ag1JiZzyUQ) that demonstrates how to
-create a workshop website.
-
-## Creating a Repository
-
-1.  Log in to GitHub.
-    (If you do not have an account, you can quickly create one for free.)
-    You must be logged in for the remaining steps to work.
-
-2.  On this page (<https://github.com/carpentries/workshop-template>),
-    click on the green "Use this template" button (top right)
+# Creating and Customizing the website
+The website is made using jekyll, which creates static html pages from markdown (and/or html).   
+Making the website is straightforward if you follow these steps after logging into github:
+1. Use the Github template function (top-right green button) to create a new repository in the CIDS domain. Title the new repo "YYYY-MM-DD-curtin-carpentries-<lang>". e.g. "2025-04-03-curtin-carpentries-git".  
 
     ![screenshot of this repository's GitHub page with an arrow pointing to the the 'use this template' button on the top left](fig/select-github-use-template.png?raw=true)
-    Alternatively, use this link: [Use this template](https://github.com/new?template_name=workshop-template&template_owner=carpentries).  With the drop down button select "Create a new repository."
+2. If the repo is public, a new webpage should be created at `curtinids.github.io/<reponame>`.
+3. Edit the workshop title in '_config.yml'. You shouldnt need to edit nay other settings.
+4. Edit relevant information at the top of "index.md". If you want to change any other wording on the main page (other than the scheudle), scroll down and make your changes using html. Make sure to delete the alert block at the top (next to the comment that tells you to delete it).
+5. Ensure `_episodes` (which contains the CIDS Git lesson material) is up-to-date.
+6. Edit `_includes/schedule.html` to correspond with the lesson material and schedule. This file is inserted into the main index. You will be editing the two tables defined after the `<table class="table table-striped">` keywords. an enclosing `<tr>` indicates a row, and an enclosing `<td>` indicates a column. By default, there will be two rows per column.  
+  If you want to insert another row, copy and paste the following into the desired location in the table after a `</tr>` (forward slash tr) and before the next `<tr>` (bare tr):
+    ```html
+    <tr>
+      <td>TIME></td>
+      <td>DESCRIPTION</td>
+    </tr>
+    ```
+    To remove a row, delete everything withing an enclosing `<tr> ... </tr>`, including the `<tr>` \& `</tr>` parts.
 
-3.  Select the owner for your new repository.
-    (This will probably be you, but may instead be an organization you belong to.)
+7. Have a browse through the website and make sure there's no placeholders left and everything is correct
 
-4.  Name your workshop website repository using the Carpentries slug format.
-    The slug should have the form `YYYY-MM-DD-site`,
-    e.g., `2016-12-01-oomza`,
-    where `YYYY-MM-DD` is the start date of the workshop and 'oomza' is an example site name.
-    If your workshop is held online, then the respository name should have `-online` in the end.
-    e.g., `2016-12-01-oomza-online`. Make sure your slug does not end with a `-` or `_`
-    character. Your website build will fail if the name of your repository does not match the
-    valid slug format! 
+# Working locally
+When making a large amount of changes to the website, it may be preferable to work locally to avoid needing to push to GitHub to test your changes. Here we describe both the setup needed and the commands to run it.
+## Pre-requisites
+This website currently requires a specific ruby version, 2.7.3.  
+### Windows/OS X
+Follow the instructions [here](https://carpentries.github.io/lesson-example/setup.html#jekyll-setup-for-lesson-development) for OS X/ Windows. There's also a Linux section in that link, but it involves installing homebrew. See below for an alternate way.
 
-6.  Make sure the repository is public, leave "Include all branches" unchecked, and click
-on "Create repository from template".
-You will be redirected to your new copy of the workshop template respository.
-
-7. Your new website will be rendered at `https://your_username.github.io/YYYY-MM-DD-site`.
-For example, if your username is `gvwilson`, the website's URL will be
-`https://gvwilson.github.io/2016-12-01-oomza`.
-
-If you experience a problem, please [get in touch](#getting-and-giving-help).
-
-## Customizing Your Website (Required Steps)
-
-There are two ways of customizing your website. You can either:
-
-- edit the files directly in GitHub using your web browser
-- clone the repository on your computer and update the files locally
-
-### Updating the files on GitHub in your web browser
-
-1.  Go into your newly-created repository,
-    which will be at `https://github.com/your_username/YYYY-MM-DD-site`.
-    For example,
-    if your username is `gvwilson`,
-    the repository's URL will be `https://github.com/gvwilson/2016-12-01-oomza`.
-
-3.  Ensure you are on the gh-pages branch by clicking on the branch under the drop
-    down in the menu bar (see the note below):
-
-    ![screenshot of this repository's GitHub page showing the "Branch" dropdown menu expanded with the "gh-pages" branch selected](fig/select-gh-pages-branch.png?raw=true)
-
-3.  Edit the header of `index.md` to customize the list of instructors,
-    workshop venue, etc.
-    You can do this in the browser by clicking on it in the file view on GitHub
-    and then selecting the pencil icon in the menu bar:
-
-    ![screenshot of top menu bar for GitHub's file interface with the edit icon highlighted in the top right](fig/edit-index-file-menu-bar.png?raw=true)
-
-    Editing hints are embedded in `index.md`,
-    and full instructions are in [the customization instructions][customization].
-
-4.  Remove the notice about using the workshop template in the `index.md` file. You can safely
-    delete everything between the `{% comment %}` and `{% endcomment %}` (included) as indicated
-    below (from line 35 to line 58):
-
-    ```jekyll
-    {% comment %} <------------ remove from this line
-    8< ============= For a workshop delete from here =============
-    For a workshop please delete the following block until the next dashed-line
-    {% endcomment %}
-
-    <div class="alert alert-danger">
-      ....
-    </div>
-
-    {% comment %}
-     8< ============================= until here ==================
-    {% endcomment %} <--------- until this line
+### Linux alternate install
+Unfortunately the ubuntu/debian versions are currently out of date, and while conda-forge has newer and older versions, it does not have 2.7.3.  
+To install 2.7.3 on linux, it's usually easiest to do the following:
+1. Install [rbenv](https://github.com/rbenv/rbenv.git) (Ruby environment manager):
+    ```shell
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    ~/.rbenv/bin/rbenv init
+    ```
+    then <u><b>restart your shell</b></u>
+2. Install the ruby build plugin into the rbenv folder
+    ```
+    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+    ```
+3. Use the following commands to install ruby 2.7.3, download the repo, set the local ruby version in the local directory to 2.7.3, install all the needed packages, and then cleanup:
+    ```
+    rbenv init
+    rbenv install 2.7.3
+    git clone <repo>
+    cd <repo dir>
+    rbenv local 2.7.3
+    rbenv shell 2.7.3
+    gem install bundler
+    make clean
     ```
 
-4.  Edit `_config.yml` to customize certain site-wide variables, such as: `carpentry` (to tell your
-    participants the lesson program for your workshop), `curriculum` and `flavor` for the
-    curriculum  taught in your workshop, and `title` (overall title for all pages).
-
-    Editing hints are embedded in `_config.yml`,
-    and full instructions are in [the customization instructions][customization].
-
-5. Edit the `schedule.html` file to edit the schedule for your upcoming workshop. This file is
-   located in the `_includes` directory, make sure to choose the one from the appropriate `dc` (Data
-   Carpentry workshop), `lc` (Library Carpentry), or `swc` (Software Carpentry) subdirectory.
-
-### Working locally
-
-> Note: you don't have to do this, if you have already updated your site using the web interface.
-
-
-If you are already familiar with Git, you can clone the repository to your desktop, edit `index.md`,
-`_config.yml`, and `schedule.html` following the instruction above there, and push your changes back to the repository.
-
-```shell
-git clone https://github.com/your_username/YYYY-MM-DD-site
+## Building the website locally
+Once you've installed the pre-requisites, simply `cd` into the repo folder in a  terminal and run:
 ```
-
-In order to view your changes once you are done editing, if you have bundler installed (see the
-[installation instructions below](#installing-software)), you can preview your site locally with:
-
-```shell
 make serve
 ```
-and go to <http://0.0.0.0:4000> to preview your site.
 
-Before pushing your changes to your repository, we recommend that you also check for any potential
-issues with your site by running:
-
-```shell
-make workshop-check
+If you're working on a remote server via ssh, you can pass through the ports with:
 ```
-
-Once you are satisfied with the edits to your site, commit and push the changes to your repository.
-A few minutes later, you can go to the GitHub Pages URL for your workshop site and preview it. In the example above, this is `https://gvwilson.github.io/2016-12-01-oomza`. [The finished
-page should look something like this](fig/completed-page.png?raw=true).
-
+ssh -N -L <local port>:localhost:<port on host>
+```
+then navigate in your web-browser to localhost:<port>  
 
 ## Optional but Recommended Steps
-
 
 ### Update your repository description and link your website
 
@@ -185,6 +106,21 @@ This will help people find your website if they come to your repository's home p
 You can change the `README.md` file in your website's repository, which contains these instructions,
 so that it contains a short description of your workshop and a link to the workshop website.
 
+## Creating Extra Pages
+
+In rare cases,
+you may want to add extra pages to your workshop website.
+You can do this by putting either Markdown or HTML pages in the website's root directory
+and styling them according to the instructions give in
+[the lesson template][lesson-example].
+
+- A `.../subdir/index.md` file will be mapped to `.../subdir` on the website,   and 
+- any other `.../subdir/filename.md` file will be mapped to `.../subdir/filename.html` on the website
+
+Be wary, that on github the pages will be hosted at `curtinids.github.io/<repo name>/page`, whereas on your local machine this will be `localhost:<port>/page`. This may mean links that work locally dont work on the web page, so be sure to specify links explicitly using the variable `relative_root_path`, e.g. 
+```
+<a href={{ relative_root_path }}/page>some text</a>
+```
 
 ## Additional Notes
 
@@ -201,21 +137,10 @@ Further instructions are available in [the customization instructions][customiza
 This [FAQ][faq] includes a few extra tips (additions are always welcome)
 and these notes on [the background and design][design] of this template may help as well.
 
-
-## Creating Extra Pages
-
-In rare cases,
-you may want to add extra pages to your workshop website.
-You can do this by putting either Markdown or HTML pages in the website's root directory
-and styling them according to the instructions give in
-[the lesson template][lesson-example].
-
-
 ## Installing Software
 
 If you want to set up Jekyll so that you can preview changes on your own machine before pushing them
-to GitHub, you must install the software described in the lesson example [setup
-instructions](https://carpentries.github.io/lesson-example/setup.html#jekyll-setup-for-lesson-development).
+to GitHub, you must install the software described in the lesson example .
 
 ## Setting Up a Separate Repository for Learners
 
