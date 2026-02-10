@@ -146,6 +146,27 @@ Automatic merge failed; fix conflicts and then commit the result.
 ~~~
 {: .output}
 
+> ## Rebase vs Merge?
+> When you run the `git pull` command you may get a message from git asking you how it should deal with the changes on the remote.
+> You will likely be told to choose between the following options:
+> ```
+> git config pull.rebase false  # merge (the default strategy)
+> git config pull.rebase true   # rebase
+> git config pull.ff only       # fast-forward only
+> ```
+>
+> Strategy `merge` - this means you'll accept both the remote and local changes to the repository by making a new commit which resolves any differences.
+> git can often figure this out for itself, though in some cases you'll get a conflict which you'll have to resolve manually.
+>
+> Strategy `rebase` - this means that you'll undo all your local changes, apply all the remote changes, and then add your local changes on-top of that.
+> This means that your local history will be re-written.
+>
+> Strategy `fast-forward only` - if the local and remote branches haven't diverged then just add all the remote changes to the local branch without needing to make a merge commit.
+>
+> **Recommendation for this workshop** is that you stick with the default behavior which is merge (run `git config pull.rebase false` to choose this).
+>
+{: .callout}
+
 The `git pull` command updates the local repository to include those
 changes already included in the remote repository.
 After the changes from remote branch have been fetched, Git detects that changes made to the local copy 
